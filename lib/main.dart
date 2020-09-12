@@ -15,11 +15,23 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   InAppWebViewController webViewController;
   bool showErrorPage = false;
+  bool disableDefaultErrorPage = true;
+  bool supportZoom = false;
   @override
   Widget build(BuildContext context) {
     return Container(
       child: InAppWebView(
-        initialUrl: 'https://google.com',
+        initialUrl: 'https://google.in',
+        initialOptions: InAppWebViewGroupOptions(
+          crossPlatform: InAppWebViewOptions(
+            debuggingEnabled: true,
+            supportZoom: false,
+            horizontalScrollBarEnabled: false,
+          ),
+          android: AndroidInAppWebViewOptions(
+            forceDark: AndroidForceDark.FORCE_DARK_ON,
+          ),
+        ),
         onWebViewCreated: (InAppWebViewController controller) {
           webViewController = controller;
         },
